@@ -3,7 +3,7 @@ class FixAlbumsAndPhotos < ActiveRecord::Migration[7.0]
     # fix foreign_key users -> user
     remove_reference :albums, :users, foreign_key: true
     add_reference :albums, :user, foreign_key: true
-
+    
     remove_reference :photos, :users, foreign_key: true
     add_reference :photos, :user, foreign_key: true
 
