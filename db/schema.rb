@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_01_042348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "post_type", null: false
-    t.bigint "post_id", default: 0, null: false
+    t.bigint "post_id", null: false
     t.index ["post_type", "post_id"], name: "index_like_posts_on_post"
     t.index ["user_id"], name: "index_like_posts_on_user_id"
   end
