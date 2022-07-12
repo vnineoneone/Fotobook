@@ -9,18 +9,19 @@ class User < ApplicationRecord
     has_many :received_follows, class_name: "FollowUser", foreign_key: "followed_id", dependent: :destroy
     has_many :is_followings, class_name: "FollowUser", foreign_key: "follower_id", dependent: :destroy
 
-    has_many :followers, through: :received_follows, source: :follower
-    has_many :followings, through: :is_followings, source: :followed
+    has_many :followers, through: :received_follows
+    has_many :followings, through: :is_followings
 
     # validates user
-    validates :password, length: { in: 6..20 }
-    validates :email, uniqueness: true
-    validates :first_name, :last_name, presence: true
-    
+    validates :password, presence: true, length: { maximum: 64 }
+    validates :email, presence: true, uniqueness: true, length: { maximum: 255 }, format: { with: /@(#{'nus.com'})/}
+    validates :first_name, :last_name, presence: true, length: { maximum: 25 }
+    validates :is_admin, inclusion: [true, false]
 
     # scope user
     scope :is_normal_user, -> { where(is_admin: false) }
     scope :is_admin_user, -> { where(is_admin: true) }
+
 
 end
 
