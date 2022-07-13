@@ -14,7 +14,8 @@ class User < ApplicationRecord
 
     # validates user
     validates :password, presence: true, length: { maximum: 64 }
-    validates :email, presence: true, uniqueness: true, length: { maximum: 255 }, format: { with: /@(#{'nus.com'})/}
+    validates :email, presence: true, uniqueness: true, length: { maximum: 255 }
+    validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
     validates :first_name, :last_name, presence: true, length: { maximum: 25 }
     validates :is_admin, inclusion: [true, false]
 
