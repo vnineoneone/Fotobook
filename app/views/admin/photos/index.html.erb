@@ -1,0 +1,18 @@
+<div class="main-content">
+  <div class="row gx-3 gy-4 profile-list">
+
+    <% @photos.each do |photo| %>
+      <div class="col-3 d-flex flex-column justify-content-center">
+        <div class="item">
+          <%= image_tag photo.picture.url %>
+          <div class="info">
+            <i class="fa-solid fa-pen-to-square fa-xl"></i>
+            <div class="title"><%= photo.title %></div>
+            <%= button_to "edit", edit_admin_photo_path(photo.id) ,method: "get"%>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

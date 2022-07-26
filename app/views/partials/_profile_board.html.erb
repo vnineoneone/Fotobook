@@ -1,0 +1,35 @@
+<div class="profile_board d-flex flex-row align-self-center">
+  <div class="avatar">
+    <%= image_tag "avatar4" %>
+  </div>
+  <div class="board d-flex flex-column justify-content-center flex-fill">
+    <% if current_user.id == params[:id].to_i or current_user.id == params[:user_id].to_i%>
+      <%= button_to "Edit Profile", edit_user_path(current_user),method: "get", form_class: "btn_edit_user" %>
+    <% else %>
+      <button class="btn_follow">follwing</button>
+    <% end %>
+    <div class="name_user">
+      Viet le
+    </div>
+    <ul class="d-flex flex-row">
+      <li class="link_user">
+        <div class="number"><%= current_user.photos.size %></div>
+        <%= link_to "PHOTOS", user_photos_path(current_user) %>
+      </li>
+      <li class="link_user">
+        <div class="number"><%= current_user.albums.size %></div>
+        <%= link_to "ALBUMS", user_albums_path(current_user) %>
+      </li>
+      <li class="link_user">
+        <div class="number"><%= current_user.is_followings.size %></div>
+        <%= link_to "FOLLOWINGS", followings_user_path(current_user) %>
+      </li>
+      <li class="link_user">
+        <div class="number"><%= current_user.received_follows.size %></div>
+        <%= link_to "FOLLOWERS", followers_user_path(current_user) %>
+      </li>
+
+    </ul>
+  </div>
+
+</div>

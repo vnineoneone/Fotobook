@@ -1,0 +1,30 @@
+<div class="main-content">
+  <%= render "partials/profile_board" %>
+  <%= button_to "Add Album" , new_user_album_path , method: "get", class: "btn btn-success btn-add" %>
+  <div class="row gx-3 gy-4 profile-list">
+
+    <% @albums.each do |album| %>
+      <div class="col-3 d-flex flex-column justify-content-center">
+        <div class="item flex-column justify-content-center align-self-center">
+          <div
+            class="image_gallery_album"
+            data-bs-toggle="modal"
+            data-bs-target="#modalAlbum"
+          >
+            <%= image_tag(album.pictures[0].url, class: "card-image1") %>
+            <%= image_tag(album.pictures[0].url, class: "card-image2") %>
+            <%= image_tag(album.pictures[0].url, class: "card-image3") %>
+          </div>
+          <% if not album.is_public %>
+            <div class="icon-lock">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+          <% end %>
+          <%= button_to "Edit", edit_album_path(album.id), method: "get" %>
+        </div>
+        <div class="title title_album"><%= album.title %></div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

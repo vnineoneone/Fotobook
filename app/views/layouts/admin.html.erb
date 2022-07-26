@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fotobook</title>
+    <%= favicon_link_tag 'facebook_favicon.png' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <%= render "partials/header_nav_admin" %>
+
+    <div class="container-fluid wrapper">
+      <div class="col-2 sidebar">
+        <%= link_to "Manage Users", admin_users_path ,class: "navbar-brand feeds-link" %>
+        <%= link_to "Manage Albums", admin_albums_path,class: "navbar-brand discover-link" %>
+        <%= link_to "Manage Photos", admin_photos_path,class: "navbar-brand discover-link" %>
+      </div>
+      <%= yield %>
+    </div>
+  </body>
+
+</html>

@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,700&display=swap");
+@import "pages/login.scss";
+@import "pages/signup.scss";
+@import "partials/header";
+@import "partials/profile_board";
+@import "partials/form";
+@import "photos/form";
+@import "photos/index";
+@import "albums/form";
+@import "albums/index";
+@import "admin/user";
+@import "admin/photo";
+@import "admin/album";
+@import "users/profile";
+
+
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+}
+
+
+

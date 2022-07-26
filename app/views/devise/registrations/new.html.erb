@@ -1,0 +1,72 @@
+<div class="container content-page">
+  <div class="form-content-signup">
+    <div class="form-title">Fotobook Signup</div>
+    <div class="list-icon-signup">
+      <%= image_tag("google-icon.jpg", class: "icon-login" ) %>
+      <%= image_tag("facebook-icon.png", class: "icon-login" ) %>
+      <%= image_tag("twitter-icon.png", class: "icon-login" ) %>
+    </div>
+    <div class="form-user">
+      <%= form_for resource, as: resource_name, url: registration_path(resource_name) do |form| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+      <%= resource.errors.inspect %>
+
+        <div class="mb-2">
+          <%= form.label "FirstName",
+              for: "fname-input",
+            class: "form-label" %>
+          <%= form.text_field :first_name ,
+              class: "form-control",
+              id: "fname_input",
+              placeholder: "First name" %>
+        </div>
+        <div class="mb-2">
+          <%= form.label "LastName",
+              for: "lname-input",
+            class: "form-label" %>
+          <%= form.text_field :last_name ,
+              class: "form-control",
+              id: "lname_input",
+              placeholder: "Last name" %>
+        </div>
+        <div class="mb-2">
+          <%= form.label "Email",
+              for: "input-email-signup",
+            class: "form-label" %>
+          <%= form.text_field :email, 
+              class: "form-control",
+              id: "input-email-signup" ,
+              placeholder: "Email",  autofocus: true, autocomplete: "email" %>
+          <% @user.errors.full_messages_for(:email).each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+        </div>
+        <div class="mb-3">
+          <%= form.label "New Password",
+              for: "input-password-signup",
+            class: "form-label" %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %>
+              characters minimum)</em>
+          <% end %><br/>
+          <%= form.password_field :password, 
+              class: "form-control",
+              id: "input-password-signup" ,
+              placeholder: "Password", autocomplete: "new-password" %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label "Password Confirmation",for: "input-password-confirm", class: "form-label" %><br/>
+            <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control",
+          id: "input-password-confirm", placeholder: "Password" %>
+        </div>
+
+        <div class="btn-login">
+          <%= form.submit "Signup",  
+              class: "btn btn-primary",
+              id: "btn-signup" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

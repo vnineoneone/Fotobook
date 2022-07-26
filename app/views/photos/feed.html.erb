@@ -1,0 +1,100 @@
+<div class="col-9 main-content">
+  <div
+    class="btn-group"
+    id="btn-main-content"
+    role="group"
+    aria-label="Basic example"
+  >
+    <%= button_to "PHOTO", "photos", :method => :get, class: "btn btn-primary", id: "btn-feed-photo" %>
+    <%= button_to "ALBUM", "albums", :method => :get, class: "btn btn-primary", id: "btn-feed-album" %>
+
+  </div>
+  <div class="container row g-2 main-content-content">
+    <% @photos.each do |photo| %>
+      <div class="col-lg-6 card-photo">
+        <div
+          class="card-image"
+          data-bs-toggle="modal"
+          data-bs-target= <%= "#photo#{photo.id}" %>
+        >
+          <%= image_tag(photo.picture.url) %>
+        </div>
+
+        <div class="card-content">
+          <div class="card-content-header">
+            <div class="card-header-avatar"></div>
+            <div class="card-header-name"><%= photo.user.first_name %></div>
+
+            <% if @type == 'discover' and current_user.id != photo.user_id%>
+              <% if current_user.followings.find_by(id: photo.user_id)%>
+                <div class="btn_follow">
+                  <button>following</button>
+                </div>
+              <% else %>
+                <%= button_to "follow" ,follow_user_path(photo.user_id), form_class: "btn_unfollow" %>
+              <% end %>
+            <% end %>
+
+          </div>
+          <div class="card-title">
+            <%= photo.title %>
+          </div>
+          <div class="card-bottom">
+            <%= photo.description %>
+          </div>
+          <div class="card-heart">
+            <i class="fa-solid fa-heart"></i>
+            <div class="card-heart-number">
+              <%= photo.like_posts.size %>
+            </div>
+          </div>
+          <div class="card-time">
+            <%# <%= photo.created_at %>
+            %>
+          </div>
+        </div>
+
+      </div>
+
+      <div
+        class="modal fade "
+        id=<%= "photo#{photo.id}" %>
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg modal_show">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel"><%= photo.title %></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              class="modal-body"
+              style="background-image: url('');width: 100%; height: 25em; overflow: hidden"
+            >
+              <%= image_tag photo.picture.url %>
+            </div>
+            <div class="modal-footer">
+              <div class="description"><%= photo.description %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+   
+
+  </div>
+  <div class="spinner-border text-primary" role="status" style="margin: 10px;">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="main-content">
+  <%= render "partials/profile_board" %>
+  <div class="row gx-3 gy-4 profile-follow">
+    <% @user_followings.each do |user| %>
+      <div class="col-3 d-flex flex-column justify-content-center">
+        <div class="card-profile">
+          <div class="avatar">
+            <%= image_tag "photo" %>
+          </div>
+          <div class="name">
+            <%= user.first_name + " " + user.last_name %>
+          </div>
+          <div class="introduce">
+            <div class="card_intro">
+              <div class="number"><%= user.photos.size %></div>
+              <div class="type">PHOTOS</div>
+            </div>
+            <div class="card_intro">
+              <div class="number"><%= user.albums.size %></div>
+              <div class="type">ALBUMS</div>
+            </div>
+          </div>
+          <%= button_to "unfollow" ,unfollow_user_path(user), form_class: "btn_unfollow" %>
+        </div>
+      </div>
+    <% end %>
+    
+  </div>
+</div>
