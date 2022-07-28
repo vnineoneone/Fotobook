@@ -10,7 +10,9 @@ gem "rails", "~> 7.0.3"
 gem "sprockets-rails"
 
 # Use mysql as the database for Active Record
-gem 'mysql2', '~> 0.5.2'
+# gem 'mysql2', '~> 0.5.2'
+gem 'pg', '~> 1.4', '>= 1.4.2'
+
 
 # Use bootrap-sass
 gem 'bootstrap', '~> 5.1.3'

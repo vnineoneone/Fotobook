@@ -11,7 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_07_22_040653) do
-  create_table "albums", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "albums", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
     t.text "description"
@@ -22,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_040653) do
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
-  create_table "follow_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "follow_users", force: :cascade do |t|
     t.bigint "follower_id"
     t.bigint "followed_id"
     t.datetime "created_at", null: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_040653) do
     t.index ["follower_id"], name: "index_follow_users_on_follower_id"
   end
 
-  create_table "like_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "like_posts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "likepostable_type", null: false
     t.bigint "likepostable_id", null: false
@@ -41,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_040653) do
     t.index ["user_id"], name: "index_like_posts_on_user_id"
   end
 
-  create_table "photos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "photos", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "album_id"
     t.string "title"
@@ -54,7 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_040653) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.boolean "is_admin", default: false
