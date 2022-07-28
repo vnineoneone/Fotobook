@@ -1,7 +1,9 @@
 
 upload_photo();
 
-function upload_photo() {
+
+ function upload_photo() {
+  console.log('upload_photo');
     var fileImg = document.getElementById("imgFoto");
     var fileInput = document.getElementById("upload_image");
 
@@ -15,6 +17,7 @@ function upload_photo() {
     );
     // Bind to the change event of our file input
     fileInput.addEventListener("change", function () {
+      var fileImg = document.getElementById("imgFoto");
       var btn_upload = document.getElementById("btn_create");
       // Get a reference to the fileList
       var files = !!this.files ? this.files : [];

@@ -7,12 +7,14 @@ Rails.application.routes.draw do
   get "/users/feed/photos" => "photos#photo_feed", :as => :user_root
 
 
+  devise_for :users
+
   devise_scope :user do
     get "/login" => "devise/sessions#new"
     get "/signup" => "devise/registrations#new"
   end
 
-  devise_for :users
+
 
   # pages for all users
   # get '/login', to: 'pages#login_view'
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
   get '/albums', to: 'albums#album_guest'
   get '/photos', to: 'photos#photo_guest'
   # Normal user
+
 
   resources :users, shallow: true do
     resources :albums, :photos
@@ -61,7 +64,7 @@ Rails.application.routes.draw do
   resources :photos do
     member do
       post :like
-      delete :unlike
+      post :unlike
     end
   end
 
@@ -69,7 +72,7 @@ Rails.application.routes.draw do
   resources :albums do
     member do
       post :like
-      delete :unlike
+      post :unlike
     end
   end
 

@@ -10,19 +10,21 @@
   </div>
 
   <div class="container row g-2 main-content-content">
-    <% @albums.each do |album| %>
+    <% @albums.reverse_each  do |album| %>
       <div class="col-lg-6 card-photo">
-        <div class="image_gallery" data-bs-toggle="modal" data-bs-target=<%= "#photo#{album.id}" %>>
+        <div class="image_gallery" data-bs-toggle="modal" data-bs-target=<%= "#album#{album.id}" %>>
           <%= image_tag(album.pictures[0].url, class: "card-image1") %>
           <%= image_tag(album.pictures[0].url, class: "card-image2") %>
           <%= image_tag(album.pictures[0].url, class: "card-image3") %>
         </div>
         <div class="card-content">
           <div class="card-content-header">
-            <div class="card-header-avatar"></div>
-            <div class="card-header-name"><%= album.user.first_name %></div>
-            <% if @type == 'discover' and current_user.id != album.user_id%>
-              <% if current_user.followings.find_by(id: album.user_id)%>
+            <div class="card-header-avatar">
+              <%= image_tag album.user.picture? ?  album.user.picture.url : "avatar2"%>
+            </div>
+            <div class="card-header-name"><%= link_to album.user.first_name , user_photos_path(album.user) %></div>
+            <% if current_user and @type == 'discover' and current_user.id != album.user_id%>
+              <% if current_user and current_user.followings.find_by(id: album.user_id)%>
                 <div class="btn_follow">
                   <button>following</button>
                 </div>
@@ -37,21 +39,32 @@
           <div class="card-bottom">
             <%= album.description %>
           </div>
-          <div class="card-heart">
-            <i class="fa-solid fa-heart"></i>
-            <div class="card-heart-number">
+          <div class="card-heart" data-controller="like">
+
+            <% if current_user and not current_user.like_albums.find_by(id: album.id)%>
+              <div data-like-target="icon" >
+                <i class="fa-solid fa-heart fa-xl" id="empty_heart" data-action="click->like#like"></i>
+              </div>
+            <% else %>
+              <div data-like-target="icon" >
+                <i class="fa-solid fa-heart fa-xl" id="active_heart" data-action="click->like#unlike"></i>
+              </div>
+            <% end %>
+              <%= button_to "like", like_album_path(album), form_class: "btn_like", form: {"data-like-target": "like"}%>
+              <%= button_to "unlike", unlike_album_path(album), form_class: "btn_like", form: {"data-like-target": "unlike"}%>
+            <div class="card-heart-number" data-like-target="count">
               <%= album.like_posts.size %>
             </div>
+
           </div>
           <div class="card-time">
-            <%# <%= album.created_at %>
-            %>
+            <%= album.created_at.strftime("%H:%M %d/%m") %>
           </div>
         </div>
       </div>
       <div
       class="modal fade"
-      id=<%= "photo#{album.id}" %>
+      id=<%= "album#{album.id}" %>
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
@@ -71,20 +84,25 @@
             ></button>
             </div>
             <div class="modal-body" style="background-image: url('');width: 100%; height: 25em; overflow: hidden">
-              <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div id=<%= "carousel#{album.id}" %> class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <%= image_tag "avatar2" %>
-                  </div>
-                  <div class="carousel-item">
-                    <%= image_tag "avatar3" %>
-                  </div>
+                  <% album.pictures.each_with_index do |picture, index| %>
+                    <% if index == 0 %>
+                      <div class="carousel-item active">
+                        <%= image_tag picture.url %>
+                      </div>
+                    <% else %>
+                      <div class="carousel-item">
+                        <%= image_tag picture.url %>
+                      </div>
+                    <% end %>
+                  <% end %>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target=<%= "#carousel#{album.id}" %> data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target=<%= "#carousel#{album.id}" %> data-bs-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Next</span>
                 </button>

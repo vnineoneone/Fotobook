@@ -1,6 +1,8 @@
 <div class="main-content">
   <%= render "partials/profile_board" %>
-  <%= button_to "Add Album" , new_user_album_path , method: "get", class: "btn btn-success btn-add" %>
+  <% if @is_user %>
+    <%= button_to "Add Album" , new_user_album_path , method: "get", class: "btn btn-success btn-add" %>
+  <% end %>
   <div class="row gx-3 gy-4 profile-list">
 
     <% @albums.each do |album| %>
@@ -20,7 +22,11 @@
               <i class="fa-solid fa-lock"></i>
             </div>
           <% end %>
-          <%= button_to "Edit", edit_album_path(album.id), method: "get" %>
+
+          <% if @is_user %>
+            <%= button_to "Edit", edit_album_path(album.id), method: "get" %>
+          <% end %>
+          
         </div>
         <div class="title title_album"><%= album.title %></div>
       </div>

@@ -5,9 +5,9 @@
       <strong><%= flash[:alert][0] %>!</strong>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-  <% else %>
+  <% elsif flash[:notice] %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Update complete!</strong> You have successfully updated your information
+      <strong>Update complete!</strong> <%= flash[:notice] %> 
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
@@ -61,7 +61,7 @@
     <% end %>
 
     <%= form_with model: @user, url: registration_path(@user), method: "put", class: "form-login" do |form| %>
-       
+      
         <div class="title">Password</div>
               <div class="mb-2">
           <%= form.label "New Password",

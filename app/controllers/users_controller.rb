@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
         if @user.update(user_params)
             redirect_to edit_user_path(@user)
+            flash[:notice] = "The account has been updated"
         else
             flash[:alert] = @user.errors.full_messages
             render :edit, status: :unprocessable_entity
@@ -29,22 +30,30 @@ class UsersController < ApplicationController
     end
 
     def followers_profile 
-        @user_followers = current_user.followers
+        @user = params[:id] != current_user ? User.find_by(id: params[:id]) : current_user
+        @user_followers = @user.followers 
+        @is_user = (params[:id].to_i == current_user.id)
         
     end
 
     def followings_profile 
-        @user_followings = current_user.followings
+        @user = params[:id] != current_user ? User.find_by(id: params[:id]) : current_user
+        @user_followings = @user.followings
+        @is_user = (params[:id].to_i == current_user.id)
     end
 
     def follow
         user = User.find_by(id: current_user)
         user.followings << User.where("id = ?", params[:id])
+        redirect_back(fallback_location: root_path)
     end
 
     def unfollow
         user = User.find_by(id: current_user)
         user.followings.destroy(User.where("id = ?", params[:id]))
+        respond_to do |format|
+            format.js {render inline: "location.reload();" }
+        end
     end
 
     private

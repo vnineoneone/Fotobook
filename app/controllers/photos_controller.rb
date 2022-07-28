@@ -3,18 +3,18 @@ class PhotosController < ApplicationController
     # before_action :check_user, only: [:edit, :update]
 
     def index
-        @photos = current_user.photos
+        @user = params[:user_id] != current_user ? User.find_by(id: params[:user_id]) : current_user
+        @photos = @user.photos
+        @is_user = (params[:user_id].to_i == current_user.id)
     end
 
     def photo_guest
         @photos = Photo.all.is_public
-        # @photos.sort!{ |a, b| b <=> a }
         render "photos/feed"
     end
 
     def photo_discover
         @photos = Photo.all.is_public
-        # @photos.sort!{ |a, b| b <=> a }
         @type = 'discover'
         render "photos/feed"
     end
@@ -25,7 +25,8 @@ class PhotosController < ApplicationController
         @user_followings.each do |user|
             @photos +=  user.photos.is_public
         end
-        @photos.sort!{ |a, b| b <=> a }
+        @photos += current_user.photos
+        @photos.sort!{ |a, b| a.created_at <=> b.created_at }
         @type = 'feed'
         render "photos/feed"
     end
@@ -64,6 +65,17 @@ class PhotosController < ApplicationController
             redirect_to user_photos_path(current_user), status: :see_other
         end
     end
+
+    def like
+        photo = Photo.find_by("id =?", params[:id])
+        current_user.like_photos << photo
+    end
+
+    def unlike
+        photo = Photo.find_by("id =?", params[:id])
+        current_user.like_photos.destroy(photo) 
+    end
+
 
     private
     def photo_params

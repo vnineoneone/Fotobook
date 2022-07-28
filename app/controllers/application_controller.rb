@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
     before_action :set_locale
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-    etag { Rails.application.importmap.digest(resolver: helpers) if request.format&.html? }
     def set_locale
         if params[:locale] == 'vi'
             I18n.locale = params[:locale] 
@@ -23,6 +22,10 @@ class ApplicationController < ActionController::Base
     end
     
     def after_sign_in_path_for(resource_or_scope)
-        feed_photo_path
+        if current_user.is_admin?
+            :admin_root
+        else
+            :user_root
+        end
     end
 end

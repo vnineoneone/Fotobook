@@ -24,11 +24,12 @@ gem 'erb-formatter'
 # Use gem "carrierwave"
 gem "carrierwave"
 
+# Use gem 'kaminari'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
 # Use gem 'devise'
 gem 'devise'
-
-# Use gem 'webpacker'
-gem 'webpacker'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"

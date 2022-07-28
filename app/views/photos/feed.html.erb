@@ -10,7 +10,7 @@
 
   </div>
   <div class="container row g-2 main-content-content">
-    <% @photos.each do |photo| %>
+    <% @photos.reverse_each do |photo| %>
       <div class="col-lg-6 card-photo">
         <div
           class="card-image"
@@ -20,18 +20,24 @@
           <%= image_tag(photo.picture.url) %>
         </div>
 
-        <div class="card-content">
+        <div class="card-content" data-controller="like">
           <div class="card-content-header">
-            <div class="card-header-avatar"></div>
-            <div class="card-header-name"><%= photo.user.first_name %></div>
+            <div class="card-header-avatar">
+              <%= image_tag photo.user.picture? ?  photo.user.picture.url : "avatar2"%>
+            </div>
+            <div class="card-header-name">
+              <%= link_to photo.user.first_name , user_photos_path(photo.user) %>
+            </div>
 
-            <% if @type == 'discover' and current_user.id != photo.user_id%>
-              <% if current_user.followings.find_by(id: photo.user_id)%>
-                <div class="btn_follow">
+            <% if current_user and @type == 'discover' and current_user.id != photo.user_id%>
+              <% if current_user and current_user.followings.find_by(id: photo.user_id)%>
+                <div class="btn_follow" >
                   <button>following</button>
                 </div>
               <% else %>
-                <%= button_to "follow" ,follow_user_path(photo.user_id), form_class: "btn_unfollow" %>
+                <div data-like-target= "follow">
+                  <%= button_to "follow" ,follow_user_path(photo.user_id), form_class: "btn_unfollow", "data-action": "click->like#follow" , form: {"data-like-target": "form"}%>
+                </div>
               <% end %>
             <% end %>
 
@@ -43,14 +49,23 @@
             <%= photo.description %>
           </div>
           <div class="card-heart">
-            <i class="fa-solid fa-heart"></i>
-            <div class="card-heart-number">
+            <% if current_user and not current_user.like_photos.find_by(id: photo.id)%>
+              <div data-like-target="icon" >
+                <i class="fa-solid fa-heart fa-xl" id="empty_heart" data-action="click->like#like"></i>
+              </div>
+            <% else %>
+              <div data-like-target="icon" >
+                <i class="fa-solid fa-heart fa-xl" id="active_heart" data-action="click->like#unlike"></i>
+              </div>
+            <% end %>
+              <%= button_to "like", like_photo_path(photo), form_class: "btn_like", form: {"data-like-target": "like"}%>
+              <%= button_to "unlike", unlike_photo_path(photo), form_class: "btn_like", form: {"data-like-target": "unlike"}%>
+            <div class="card-heart-number" data-like-target="count">
               <%= photo.like_posts.size %>
             </div>
           </div>
           <div class="card-time">
-            <%# <%= photo.created_at %>
-            %>
+            <%= photo.created_at.strftime("%H:%M %d/%m") %>
           </div>
         </div>
 
@@ -94,7 +109,7 @@
    
 
   </div>
-  <div class="spinner-border text-primary" role="status" style="margin: 10px;">
+  <%# <div class="spinner-border text-primary" role="status" style="margin: 10px;">
     <span class="visually-hidden">Loading...</span>
-  </div>
+  </div> %>
 </div>

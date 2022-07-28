@@ -5,14 +5,12 @@
 import "@hotwired/turbo-rails";
 import "controllers";
 import "bootstrap";
-alert(11111);
-//// photo upload ////
+// import { edit_photo } from "edit_image";
+// import { upload_photo } from "preview_image";
+
+
 // edit_photo();
 // upload_photo();
-// var close_icon = $("#close-icon");
-// close_icon.on("click", function () {
-//   alert(1);
-// });
 // upload_album();
 
 

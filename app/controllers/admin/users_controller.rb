@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
     layout 'admin'
     def index
-        @users = User.all
+        @users = User.all.page params[:page];
     end
 
     def edit
@@ -30,6 +30,6 @@ class Admin::UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :avatar, :active, :current_password)
+        params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :picture, :active, :current_password)
     end
 end
