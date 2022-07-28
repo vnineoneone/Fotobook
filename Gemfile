@@ -9,8 +9,27 @@ gem "rails", "~> 7.0.3"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+# Use mysql as the database for Active Record
+gem 'mysql2', '~> 0.5.2'
+
+# Use bootrap-sass
+gem 'bootstrap', '~> 5.1.3'
+
+# Use gem "jquery"
+gem 'jquery-rails'
+
+# formmat .erb
+gem 'erb-formatter'
+
+# Use gem "carrierwave"
+gem "carrierwave"
+
+# Use gem 'kaminari'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
+# Use gem 'devise'
+gem 'devise'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"

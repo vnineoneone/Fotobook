@@ -1,0 +1,34 @@
+<div class="container content-page">
+  <div class="form-content">
+    <div class="form-title">Fotobook Login</div>
+    <div class="list-icon">
+      <%= image_tag("google-icon.jpg", class: "icon-login" ) %>
+      <%= image_tag("facebook-icon.png", class: "icon-login" ) %>
+      <%= image_tag("twitter-icon.png", class: "icon-login" ) %>
+    </div>
+    <div class="form-user">
+      <div class="avatar"></div>
+      <%= form_with url: '/login' , class: "form_login" do |form| %>
+        <div class="">
+          <%= form.text_field :email, 
+          class: "form-control",
+          id: "input-email-login",
+          placeholder: "Email" %>
+        </div>
+        <div class="mb-3">
+          <%= form.password_field :password, 
+            class: "form-control",
+            id: "input-password-login",
+            placeholder: "Password" %>
+        </div>
+        <div class="btn-login">
+          <%= form.submit "Login",  
+            class: "btn btn-primary",
+            id: "btn-login" %>
+        </div>
+      <% end %>
+      <a href="" class="link link-forgot">Forgot password?</a>
+    </div>
+    <a class="link link-create" href="/signup">Create an account</a>
+  </div>
+</div>

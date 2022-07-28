@@ -1,0 +1,51 @@
+.navbar-header {
+    background-color: #3c5999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+}
+
+.col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-brand {
+    width: 100%;
+    margin: auto;
+}
+
+
+
+.form-search {
+    width: 90%;
+    height: 100%;
+}
+
+.navbar-brand.title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: white;
+}
+
+.navbar-brand.login {
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: white;
+}
+
+.button-logout{
+    background-color: #3c5999;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+}

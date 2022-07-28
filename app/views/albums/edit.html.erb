@@ -1,0 +1,96 @@
+
+
+<div class="col-9 main-content">
+  <div class="new-title">New Album</div>
+  <%= flash[:alert] %>
+  <%= form_with model: @album , class: "form-create",method: "put" do |form| %>
+    <div class="row">
+      <div class="col col-left">
+        <div class="form">
+          <%= form.label "Title",
+              for: "fname-input",
+            class: "form-label" %>
+          <%= form.text_field :title ,
+              class: "form-control",
+              id: "fname_input",
+              placeholder: "Photo title" %>
+        </div>
+        <div class="sharing">
+          <%= form.label "Sharing mode",
+              for: "sharing_mode",
+            class: "form-label" %>
+          <%= form.select :is_public, [["Public", true], ["Private", false]], selected: "Public", id: "sharing_mode" %>
+        </div>
+      </div>
+      <div class="col col-right">
+        <div class="form">
+          <%= form.label "Description",
+              for: "lname-input",
+            class: "form-label" %>
+          <%= form.text_area :description ,
+              class: "form-control",
+              id: "lname_input",
+              placeholder: "Photo description" %>
+        </div>
+      </div>
+    </div>
+
+    <% @album.pictures.each do |picture| %>
+      <%= hidden_field :album, :pictures, multiple: true, value: picture.identifier %>
+    <% end %>
+
+    <div class="row gx-1 gy-4 list-photos">
+      <div class="col-3 d-flex justify-content-center">
+        <div class="form_image_upload">
+          <div class="btn_upload", id="btn_create_album">
+          <%= form.file_field :pictures, accept: "image/jpeg, image/gif, image/png, image/jpg", id: "upload_image_album", multiple: true %>
+          <i class="fa-solid fa-plus"></i>
+          </div>
+        </div>
+      </div>
+  
+      <% @album.pictures.each do |picture| %>
+        <div class="col-3 d-flex justify-content-center">
+          <div class="form_image_edit">
+            <%= image_tag "#{picture}" , class: "list_image"%>
+            <i class="fa-solid fa-x" id="close-icon"></i>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+   <div class="list-btn">
+      <%= form.submit "Save",  
+          class: "btn btn-success",
+          id: "btn-save" %>
+
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                data-bs-target="#deleteModal">Delete</button>
+    </div>
+
+  <% end %>
+</div>  
+
+
+<div class="modal" tabindex="-1" id="deleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm deletion</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p> The following album will be deleted </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <%= button_to "Delete",  album_path(@album),  method: "delete", class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

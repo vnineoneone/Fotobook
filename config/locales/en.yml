@@ -31,3 +31,11 @@
 
 en:
   hello: "Hello world"
+  partials:
+    header_nav:
+      login: "Login"
+      search: "Search"
+
+  
+
+

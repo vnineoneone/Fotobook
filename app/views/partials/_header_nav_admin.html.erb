@@ -1,0 +1,31 @@
+<nav class="navbar navbar-light navbar-header">
+  <div class="container-fluid header">
+    <div class="col col-xl-2">
+      <a class="navbar-brand title" href="/admin">Fotobook Admin</a>
+    </div>
+    <div class="col col-xl-5">
+      <form class="d-flex form-search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </form>
+    </div>
+    <div class="col col-xl-3"></div>
+    <% if user_signed_in? %>
+      <div class="col col-xl-1 user-nav">
+        <%= image_tag current_user.picture? ? current_user.picture.url : "avatar2", class: "avatar-user" %>
+        <%= link_to current_user.first_name , user_photos_path(current_user), class: "name-user" %>
+      </div>
+      <div class="col col-xl-1">
+        <%= button_to "Logout", destroy_user_session_path,:method => :delete, class: "button-logout" %>
+      </div>
+    <% else %>
+      <div class="col col-xl-1">
+        <%= link_to "Login", login_path, class: "navbar-brand login" %>
+      </div>
+    <% end %>
+  </div>
+</nav>

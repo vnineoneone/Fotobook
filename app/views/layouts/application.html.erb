@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Server</title>
+    <title>Fotobook</title>
+    <%= favicon_link_tag 'facebook_favicon.png' %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <%= yield(:head) %>
+  
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "partials/header_nav_user" %>
+    <div class="container-fluid wrapper">
+      <% if user_signed_in? %>
+        <div class="col-2 sidebar">
+          <%= link_to "Feeds", feed_photo_path(), class: "navbar-brand feeds-link" %>
+          <%= link_to "Discover", discover_photo_path(), class: "navbar-brand discover-link" %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
+
 </html>

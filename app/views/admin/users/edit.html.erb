@@ -1,0 +1,70 @@
+<div class="col-9 main-content">
+  <div class="new-title">Edit User Profile</div>
+  <% if flash[:alert] %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong><%= flash[:alert][0] %>!</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% elsif flash[:notice] %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Update complete!</strong> <%= flash[:notice] %> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+
+  <hr/>
+  <div class="form-user-edit">
+    <div class="avatar">
+      <%= image_tag @user.picture? ? @user.picture.url : "avatar2"%>
+    </div>
+
+    <%= form_with model: @user,  url: admin_user_path(@user), method: "put", class: "form-login" do |form| %>
+      <div class="btn_edit_avatar", id="btn_edit_avatar">
+        <%= form.file_field :picture, accept: "image/jpeg, image/gif, image/png, image/jpg", id: "upload_image" %>
+      </div>
+       <div class="mb-2">
+          <%= form.label "FirstName",
+              for: "fname-input",
+            class: "form-label" %>
+          <%= form.text_field :first_name ,
+              class: "form-control",
+              id: "fname_input",
+              placeholder: "First name" %>
+        </div>
+        <div class="mb-2">
+          <%= form.label "LastName",
+              for: "lname-input",
+            class: "form-label" %>
+          <%= form.text_field :last_name ,
+              class: "form-control",
+              id: "lname_input",
+              placeholder: "Last name" %>
+        </div>
+        <div class="mb-2">
+          <%= form.label "Email",
+              for: "input-email-signup",
+            class: "form-label" %>
+          <%= form.text_field :email, 
+              class: "form-control",
+              id: "input-email-signup" ,
+              placeholder: "Email",  autofocus: true, autocomplete: "email" %>
+          <% @user.errors.full_messages_for(:email).each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label "Active?", class: "form-label" %>
+        <%= form.check_box :active%>
+      </div>
+
+      <div class="btn-login">
+        <%= form.submit "Save",  
+              class: "btn btn-success" %>
+      </div>
+    <% end %>
+
+    
+  </div>
+</div>

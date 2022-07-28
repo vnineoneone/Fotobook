@@ -1,0 +1,5 @@
+vi:
+  partials:
+    header_nav:
+      login: "Đăng nhập"
+      search: "Tìm kiếm"

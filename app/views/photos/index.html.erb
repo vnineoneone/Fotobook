@@ -1,0 +1,27 @@
+<div class="main-content">
+  <%= render "partials/profile_board" %>
+  <% if @is_user %>
+    <%= button_to "Add Photo" , new_user_photo_path , method: "get", class: "btn btn-success btn-add" %>
+  <% end %>
+  <div class="row gx-3 gy-4 profile-list">
+
+    <% @photos. each do |photo| %>
+
+      <div class="col-3 d-flex flex-column justify-content-center">
+        <div class="item">
+          <%= image_tag photo.picture.url %>
+          <% if @is_user %>
+            <% if not photo.is_public %>
+              <div class="icon-lock">
+                <i class="fa-solid fa-lock"></i>
+              </div>
+            <% end %>
+            <%= button_to "Edit", edit_photo_path(photo.id), method: "get" %>
+          <% end %>
+        </div>
+        <div class="title"><%= photo.title %></div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
