@@ -16,7 +16,7 @@
     <div class="col col-xl-4"></div>
     <% if user_signed_in? %>
       <div class="col col-xl-1 user-nav">
-       <%= image_tag current_user.picture? ? current_user.picture.url : "avatar2", class: "avatar-user"%>
+       <%= image_tag current_user.picture? ? current_user.picture.url : "avatar2.png", class: "avatar-user"%>
         <%= link_to current_user.first_name , user_photos_path(current_user), class: "name-user" %>
       </div>
       <div class="col col-xl-1">
