@@ -23,7 +23,7 @@
         <div class="card-content" data-controller="like">
           <div class="card-content-header">
             <div class="card-header-avatar">
-              <%= image_tag photo.user.picture? ?  photo.user.picture.url : "avatar2"%>
+              <%= image_tag photo.user.picture? ?  photo.user.picture.url : "avatar2.png"%>
             </div>
             <div class="card-header-name">
               <%= link_to photo.user.first_name , user_photos_path(photo.user) %>

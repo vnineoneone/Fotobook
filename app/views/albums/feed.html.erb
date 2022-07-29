@@ -20,7 +20,7 @@
         <div class="card-content">
           <div class="card-content-header">
             <div class="card-header-avatar">
-              <%= image_tag album.user.picture? ?  album.user.picture.url : "avatar2"%>
+              <%= image_tag album.user.picture? ?  album.user.picture.url : "avatar2.png"%>
             </div>
             <div class="card-header-name"><%= link_to album.user.first_name , user_photos_path(album.user) %></div>
             <% if current_user and @type == 'discover' and current_user.id != album.user_id%>
