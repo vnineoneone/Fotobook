@@ -1,5 +1,45 @@
 <div class="main-content">
-  <%= render "partials/profile_board" %>
+
+  <div class="profile_board d-flex flex-row align-self-center">
+    <div class="avatar">
+      <%= image_tag @user.picture? ? @user.picture.url : "avatar2.png" %>
+    </div>
+    <div class="board d-flex flex-column justify-content-center flex-fill">
+      <% if @is_user %>
+        <%= button_to "Edit Profile", edit_user_path(@user),method: "get", form_class: "btn_edit_user" %>
+      <% else %>
+        <% if current_user.followings.find_by(id: @user.id) %>
+          <div class="btn_follow">
+            <button>following</button>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="name_user">
+        <%= @user.first_name + ' ' + @user.last_name %>
+      </div>
+      <ul class="d-flex flex-row">
+        <li class="link_user">
+          <div class="number"><%= @user.photos.size %></div>
+          <%= link_to "PHOTOS", user_photos_path(@user)%>
+        </li>
+        <li class="link_user">
+          <div class="number"><%= @user.albums.size %></div>
+          <%= link_to "ALBUMS", user_albums_path(@user), class: "link_active"  %>
+        </li>
+        <li class="link_user">
+          <div class="number"><%= @user.is_followings.size %></div>
+          <%= link_to "FOLLOWINGS", followings_user_path(@user) %>
+        </li>
+        <li class="link_user">
+          <div class="number"><%= @user.received_follows.size %></div>
+          <%= link_to "FOLLOWERS", followers_user_path(@user) %>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+
   <% if @is_user %>
     <%= button_to "Add Album" , new_user_album_path , method: "get", class: "btn btn-success btn-add" %>
   <% end %>
@@ -26,7 +66,7 @@
           <% if @is_user %>
             <%= button_to "Edit", edit_album_path(album.id), method: "get" %>
           <% end %>
-          
+
         </div>
         <div class="title title_album"><%= album.title %></div>
       </div>

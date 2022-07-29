@@ -27,7 +27,7 @@ gem 'erb-formatter'
 gem "carrierwave"
 
 # Use gem 'kaminari'
-gem 'kaminari'
+gem 'kaminari', '~> 1.2', '>= 1.2.2'  
 gem 'bootstrap-kaminari-views'
 
 # Use gem 'devise'

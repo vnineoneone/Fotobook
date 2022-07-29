@@ -45,25 +45,26 @@
             text-align: center;
             padding-right: 1rem;
             display: flex;
-            // justify-content: end;
+            .number{
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 28px;
+                margin-right: 4px;
+            }
+            a {
+                color: #828282;
+                text-decoration: none;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .link_active{
+                color: #3c5999;
+            }
+        }
 
-        }
-        .link_user .number{
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 28px;
-            margin-right: 4px;
-        }
-
-        .link_user a {
-            color: #828282;
-            text-decoration: none;
-            font-weight: 200;
-            font-size: 18px;
-            line-height: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
     }
 }

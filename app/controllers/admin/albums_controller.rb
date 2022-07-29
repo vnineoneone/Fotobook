@@ -1,7 +1,7 @@
-class Admin::AlbumsController < ApplicationController
+class Admin::AlbumsController < Admin::AdminController
     layout 'admin'
     def index
-        @albums = Album.all
+        @albums = Album.all.page(params[:page]).per(5)
     end
 
     def edit

@@ -11,7 +11,6 @@
     <%= javascript_importmap_tags %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%= yield(:head) %>
-  
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -20,11 +19,11 @@
 
   <body>
     <%= render "partials/header_nav_user" %>
-    <div class="container-fluid wrapper">
+    <div class="container-fluid wrapper min-vh-100">
       <% if user_signed_in? %>
-        <div class="col-2 sidebar">
-          <%= link_to "Feeds", feed_photo_path(), class: "navbar-brand feeds-link" %>
-          <%= link_to "Discover", discover_photo_path(), class: "navbar-brand discover-link" %>
+        <div class="col-2 sidebar" data-controller="active">
+          <%= link_to "Feeds", feed_photo_path(), class: "navbar-brand feeds-link", "data-action": "click->active#active1", "data-active-target": "link1" %>
+          <%= link_to "Discover", discover_photo_path(), class: "navbar-brand discover-link", "data-action": "click->active#active", "data-active-target": "link2" %>
         </div>
       <% end %>
       <%= yield %>

@@ -296,7 +296,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
-  kaminari
+  kaminari (~> 1.2, >= 1.2.2)
   pg (~> 1.4, >= 1.4.2)
   puma (~> 5.0)
   rails (~> 7.0.3)

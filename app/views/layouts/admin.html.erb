@@ -9,7 +9,9 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <%= yield(:head) %>
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -19,7 +21,7 @@
   <body>
     <%= render "partials/header_nav_admin" %>
 
-    <div class="container-fluid wrapper">
+    <div class="container-fluid wrapper min-vh-100">
       <div class="col-2 sidebar">
         <%= link_to "Manage Users", admin_users_path ,class: "navbar-brand feeds-link" %>
         <%= link_to "Manage Albums", admin_albums_path,class: "navbar-brand discover-link" %>

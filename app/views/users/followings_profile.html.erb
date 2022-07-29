@@ -1,11 +1,51 @@
 <div class="main-content">
-  <%= render "partials/profile_board" %>
+
+  <div class="profile_board d-flex flex-row align-self-center">
+    <div class="avatar">
+      <%= image_tag @user.picture? ? @user.picture.url : "avatar2.png" %>
+    </div>
+    <div class="board d-flex flex-column justify-content-center flex-fill">
+      <% if @is_user %>
+        <%= button_to "Edit Profile", edit_user_path(@user),method: "get", form_class: "btn_edit_user" %>
+      <% else %>
+        <% if current_user.followings.find_by(id: @user.id) %>
+          <div class="btn_follow">
+            <button>following</button>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="name_user">
+        <%= @user.first_name + ' ' + @user.last_name %>
+      </div>
+      <ul class="d-flex flex-row">
+        <li class="link_user">
+          <div class="number"><%= @user.photos.size %></div>
+          <%= link_to "PHOTOS", user_photos_path(@user) %>
+        </li>
+        <li class="link_user">
+          <div class="number"><%= @user.albums.size %></div>
+          <%= link_to "ALBUMS", user_albums_path(@user) %>
+        </li>
+        <li class="link_user">
+          <div class="number"><%= @user.is_followings.size %></div>
+          <%= link_to "FOLLOWINGS", followings_user_path(@user), class: "link_active" %>
+        </li>
+        <li class="link_user">
+          <div class="number"><%= @user.received_follows.size %></div>
+          <%= link_to "FOLLOWERS", followers_user_path(@user) %>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+
   <div class="row gx-3 gy-4 profile-follow">
     <% @user_followings.each do |user| %>
       <div class="col-3 d-flex flex-column justify-content-center">
         <div class="card-profile">
           <div class="avatar">
-            <%= image_tag "photo" %>
+            <%= image_tag "photo.jpg" %>
           </div>
           <div class="name">
             <%= user.first_name + " " + user.last_name %>
@@ -27,9 +67,9 @@
               </div>
             <% else %>
               <%= button_to "follow" ,follow_user_path(user), form_class: "btn_unfollow" %>
-            <% end %> 
+            <% end %>
           <% else %>
-             <%= button_to "unfollow" ,unfollow_user_path(user), form_class: "btn_unfollow" %>
+            <%= button_to "unfollow" ,unfollow_user_path(user), form_class: "btn_unfollow" %>
           <% end %>
         </div>
       </div>

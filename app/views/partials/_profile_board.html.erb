@@ -18,7 +18,7 @@
     <ul class="d-flex flex-row">
       <li class="link_user">
         <div class="number"><%= @user.photos.size %></div>
-        <%= link_to "PHOTOS", user_photos_path(@user) %>
+        <%= link_to "PHOTOS", user_photos_path(@user), class: "link_active"%>
       </li>
       <li class="link_user">
         <div class="number"><%= @user.albums.size %></div>

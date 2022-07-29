@@ -1,7 +1,7 @@
-class Admin::PhotosController < ApplicationController
+class Admin::PhotosController < Admin::AdminController
     layout 'admin'
     def index
-        @photos = Photo.all
+        @photos = Photo.all.page(params[:page]).per(5)
     end
 
     def edit
