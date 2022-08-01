@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   scope :feed do
     # get '/', to: 'photos#photo_feed', as: 'feed'
     get 'photos', to: 'photos#photo_feed', as: 'feed_photo'
-    get 'albums', to: 'albums#album_feed', as: 'feed-album'
+    get 'albums', to: 'albums#album_feed', as: 'feed_album'
   end
 
   scope :discover do

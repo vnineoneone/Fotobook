@@ -19,7 +19,7 @@
       <ul class="d-flex flex-row">
         <li class="link_user">
           <div class="number"><%= @user.photos.size %></div>
-          <%= link_to "PHOTOS", user_photos_path(@user)%>
+          <%= link_to "PHOTOS", user_photos_path(@user) %>
         </li>
         <li class="link_user">
           <div class="number"><%= @user.albums.size %></div>
@@ -44,7 +44,7 @@
       <div class="col-3 d-flex flex-column justify-content-center">
         <div class="card-profile">
           <div class="avatar">
-            <%= image_tag "photo" %>
+            <%= image_tag user.picture? ? user.picture.url : "avatar2.png" %>
           </div>
           <div class="name">
             <%= user.first_name + " " + user.last_name %>
